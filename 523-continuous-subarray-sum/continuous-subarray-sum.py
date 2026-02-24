@@ -1,20 +1,17 @@
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
-        #~subarray sum divisible by k, but added constraint size>=2
         currSum = 0
-        prefixSumRemainderMap = defaultdict(int)
-        prefixSumRemainderMap[0] = -1
+        prefixRemMap = defaultdict(int)
 
         for i,val in enumerate(nums):
             currSum += val
-            remainder = currSum % k
-            if remainder in prefixSumRemainderMap:
-                if (i-prefixSumRemainderMap[remainder]) >= 2:
+            currRem = currSum % k
+            if (currRem == 0) and (i >= 1):
+                return True
+            elif currRem in prefixRemMap:
+                if (i - prefixRemMap[currRem]) > 1:
                     return True
-            else: #Only update when encounter new remainder --> want to maximize length of subarray
-                prefixSumRemainderMap[remainder] = i
+            else:
+                prefixRemMap[currRem] = i
         return False
-
-
-
         
