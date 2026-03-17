@@ -1,17 +1,14 @@
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        remMap = defaultdict(int)
+        remMap[0] = -1
         currSum = 0
-        prefixRemMap = defaultdict(int)
-
         for i,val in enumerate(nums):
             currSum += val
-            currRem = currSum % k
-            if (currRem == 0) and (i >= 1):
-                return True
-            elif currRem in prefixRemMap:
-                if (i - prefixRemMap[currRem]) > 1:
+            rem = currSum % k
+            if rem in remMap:
+                if i - remMap[rem] >= 2:
                     return True
             else:
-                prefixRemMap[currRem] = i
+                remMap[rem] = i
         return False
-        
