@@ -7,12 +7,12 @@ class Solution:
             return 0
         left = 0
         currSum, count = 0,0
-        for i in range(len(nums)):
-            currSum += nums[i]
+        for right in range(len(nums)):
+            currSum += nums[right]
             while currSum > goal:
                 currSum -= nums[left]
                 left += 1
-            count += i - left + 1 # count of unique subarrays ending at right
+            count += right - left + 1 # count of unique subarrays ending at right
         return count
 
 
