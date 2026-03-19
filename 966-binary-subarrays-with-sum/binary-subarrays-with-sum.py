@@ -1,12 +1,19 @@
 class Solution:
     def numSubarraysWithSum(self, nums: List[int], goal: int) -> int:
-        prefixSumMap = defaultdict(int)
-        prefixSumMap[0] = 1
+        return self.atMostGoalCount(nums,goal) - self.atMostGoalCount(nums,goal-1)
+    
+    def atMostGoalCount(self,nums,goal):
+        if goal < 0:
+            return 0
+        left = 0
         currSum, count = 0,0
         for i in range(len(nums)):
             currSum += nums[i]
-            diff = currSum - goal
-            if diff in prefixSumMap:
-                count += prefixSumMap[diff]
-            prefixSumMap[currSum] += 1
+            while currSum > goal:
+                currSum -= nums[left]
+                left += 1
+            count += i - left + 1 # count of unique subarrays ending at right
         return count
+
+
+            
