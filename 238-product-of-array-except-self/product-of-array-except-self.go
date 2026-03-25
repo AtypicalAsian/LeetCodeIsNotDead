@@ -1,33 +1,25 @@
 func productExceptSelf(nums []int) []int {
     prefixProd := 1
 
-    // Init left prefix + right suffix arr
+    // Init 
     n := len(nums)
-    leftPrefix := make([]int, n)
-    rightSuffix := make([]int, n)
-    for i := range leftPrefix {
-        leftPrefix[i] = 1
-        rightSuffix[i] = 1
+    res := make([]int, n)
+    for i := range n {
+        res[i] = 1
     }
 
-    // Calc leftPrefix
+    // Calc left prefix arr
     for i,val := range nums[0:n-1] {
         prefixProd *= val
-        leftPrefix[i+1] = prefixProd
+        res[i+1] = prefixProd
     }
-    // return leftPrefix
 
-    // Calc rightSuffix
+    // Calc right suffix arr
     prefixProd = 1
     for i := n-1; i>=1; i-- {
         prefixProd *= nums[i]
-        rightSuffix[i-1] = prefixProd
+        res[i-1] *= prefixProd
     }
-
-    result := make([]int, n)
-    for i := range n {
-        result[i] = leftPrefix[i] * rightSuffix[i]
-    }
-    return result
+    return res
 
 }
