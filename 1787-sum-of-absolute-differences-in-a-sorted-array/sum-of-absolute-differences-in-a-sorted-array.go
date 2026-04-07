@@ -8,7 +8,7 @@ func getSumAbsoluteDifferences(nums []int) []int {
 
     currSum := 0
     // Create left prefix sum array
-    for i:=0;i<len(nums);i++{
+    for i:=0;i<n;i++{
         prefixLeft[i] = currSum
         currSum += nums[i]
     }
@@ -21,7 +21,7 @@ func getSumAbsoluteDifferences(nums []int) []int {
     }
 
     val_at_i := 0
-    for i:=0; i < len(nums); i++ {
+    for i:=0; i < n; i++ {
         val_at_i = (nums[i] * i - prefixLeft[i]) + (prefixRight[i] - nums[i] * (len(nums)-i-1))
         res[i] = val_at_i
     }
