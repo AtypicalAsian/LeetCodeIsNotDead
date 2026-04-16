@@ -5,16 +5,10 @@ func fourSum(nums []int, target int) [][]int {
 
 func kSum(nums []int, target int, start int, k int) [][]int {
     res := [][]int{}
-    // If we have run out of numbers to add, return res.
     if start == len(nums) {
         return res
     }
-    // There are k remaining values to add to the sum. The
-    // average of these values is at least target / k.
     average_value := target / k
-    // We cannot obtain a sum of target if the smallest value
-    // in nums is greater than target / k or if the largest
-    // value in nums is smaller than target / k.
     if nums[start] > average_value || average_value > nums[len(nums)-1] {
         return res
     }
