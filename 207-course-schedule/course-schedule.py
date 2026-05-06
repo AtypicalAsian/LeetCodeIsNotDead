@@ -1,16 +1,12 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        #Construct graph (adj list)
-        graph = [[] for i in range(numCourses)]
-        indegree = [0 for i in range(numCourses)]
-
-        for edge in prerequisites:
-            graph[edge[1]].append(edge[0])
-            indegree[edge[0]] += 1
+        graph = [[] for _ in range(numCourses)]
+        indegree = [0 for _ in range(numCourses)]
+        for pair in prerequisites:
+            graph[pair[1]].append(pair[0])
+            indegree[pair[0]] += 1
         
-        # Run BFS on graph to find ordering
-
-        # Init queue with nodes where indegree = 0
+        # Run BFS/Topo Sort on Graph
         queue = deque()
         for i in range(numCourses):
             if indegree[i] == 0:
@@ -20,10 +16,11 @@ class Solution:
         while queue:
             size = len(queue)
             for _ in range(size):
-                currNode = queue.popleft()
                 count += 1
-                for nxt in graph[currNode]:
-                    indegree[nxt] -= 1
-                    if indegree[nxt] == 0:
-                        queue.append(nxt)
+                currNode = queue.popleft()
+                for nb in graph[currNode]:
+                    indegree[nb] -= 1
+                    if indegree[nb] == 0:
+                        queue.append(nb)
         return count == numCourses
+                
