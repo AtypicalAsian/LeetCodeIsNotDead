@@ -5,20 +5,17 @@ class TimeMap:
 
     def set(self, key: str, value: str, timestamp: int) -> None:
         self.kvStore[key].append((timestamp,value))
-        
 
     def get(self, key: str, timestamp: int) -> str:
         if key not in self.kvStore:
             return ""
-        entries = self.kvStore[key]
-        l,r = 0, len(entries)-1
+        l,r = 0,len(self.kvStore[key])-1
         result = ""
-
         while l <= r:
             mid = (l+r)//2
-            if entries[mid][0] <= timestamp: # Push right
+            if self.kvStore[key][mid][0] <= timestamp:
                 l = mid + 1
-                result = entries[mid][1]
+                result = self.kvStore[key][mid][1]
             else:
                 r = mid - 1
         return result
