@@ -10,15 +10,17 @@ class TimeMap:
         if key not in self.kvStore:
             return ""
         l,r = 0,len(self.kvStore[key])-1
-        result = ""
+        entries = self.kvStore[key]
+
+        res = ""
         while l <= r:
             mid = (l+r)//2
-            if self.kvStore[key][mid][0] <= timestamp:
+            if entries[mid][0] <= timestamp:
                 l = mid + 1
-                result = self.kvStore[key][mid][1]
+                res = entries[mid][1]
             else:
                 r = mid - 1
-        return result
+        return res
 
 
 # Your TimeMap object will be instantiated and called as such:
