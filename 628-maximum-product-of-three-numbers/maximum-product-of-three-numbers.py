@@ -1,12 +1,16 @@
 class Solution:
-    def maximumProduct(self, nums: List[int]) -> int:
-        nums.sort()
-        
-        ## two smallest negative integers and largest positive integer
-        candidateA = nums[0] * nums[1] * nums[-1]
+    def maximumProduct(self, A: List[int]) -> int:
+        a = b = c = -1001
+        x = y = 1001
 
-        ## three largest positive integers
-        candidateB = nums[-1] * nums[-2] * nums[-3]
+        for n in A:
+            pa, pb, px = a, b, x
+            
+            a = max(a, n)
+            b = max(b, min(pa, n))
+            c = max(c, min(pb, n))
+            
+            x = min(x, n)
+            y = min(y, max(px, n))
 
-        return max(candidateA, candidateB)
-        
+        return max(a * b * c, a * x * y)
