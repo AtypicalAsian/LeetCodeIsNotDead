@@ -1,11 +1,15 @@
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
+        biggest, second_biggest = 0,0
         maxProd = -float('inf')
-        left = 0
-        while left < len(nums):
-            for right in range(left+1,len(nums)):
-                currProd = (nums[left]-1) * (nums[right]-1)
-                maxProd = max(maxProd,currProd)
-            left += 1
-        return maxProd
+        for i in range(len(nums)):
+            if nums[i] > biggest:
+                second_biggest = biggest
+                biggest = nums[i]
+            elif second_biggest < nums[i] <= biggest:
+                second_biggest = nums[i]
+        # print(biggest, second_biggest)
+        return (biggest-1) * (second_biggest-1)
+
+                
             
